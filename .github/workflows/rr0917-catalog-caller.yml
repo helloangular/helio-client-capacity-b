@@ -1,0 +1,22 @@
+name: rr0917-catalog-caller
+run-name: ${{ inputs.helio_execution_id || format('rr0917 catalog release {0}', github.sha) }}
+# r99 re-run fixture (rr0917): application caller of the rr0917 catalog template (module-09 lane on App B).
+on:
+  workflow_dispatch:
+    inputs:
+      helio_execution_id:
+        type: string
+        required: false
+        default: ''
+      helio_target_environment:
+        type: string
+        required: false
+        default: ''
+permissions:
+  contents: read
+jobs:
+  deploy:
+    uses: helloangular/helio-client-capacity-20260916/.github/workflows/rr0917-catalog-deploy.yml@rr0917-catalog
+    with:
+      helio_execution_id: ${{ inputs.helio_execution_id || '' }}
+      helio_target_environment: ${{ inputs.helio_target_environment || '' }}
